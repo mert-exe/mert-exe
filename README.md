@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WEB 203 · Dersler
 
-## Getting Started
+WEB 203, Next.js App Router ve Supabase kullanan küçük bir öğrenme uygulamasıdır. Ana sayfadan ders listesine geçilir; `/dersler` sayfası `public.dersler` tablosundaki kayıtları sunucuda okuyup gösterir.
 
-First, run the development server:
+## Başlangıç
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. `.env.example` dosyasını `.env.local` adıyla kopyala.
+2. Supabase projenin adresini `NEXT_PUBLIC_SUPABASE_URL` değerine, Publishable Key değerini `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` değerine yaz.
+3. Supabase SQL Editor'da `supabase/schema.sql` dosyasının içeriğini çalıştır. Bu işlem `dersler` tablosunu, herkese açık okuma iznini ve örnek ders kayıtlarını hazırlar.
+4. Bağımlılıkları kurup uygulamayı başlat:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+5. `http://localhost:3000` adresini aç. Ders listesi `http://localhost:3000/dersler` adresindedir.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Üretim derlemesi için `npm run build`, derlemeyi yerel olarak sunmak için `npm run start` komutlarını kullan.
 
-## Learn More
+## Proje yapısı
 
-To learn more about Next.js, take a look at the following resources:
+- `app/page.tsx`: ana sayfa
+- `app/dersler/page.tsx`: Supabase'ten dersleri okuyan sayfa
+- `lib/supabase/server.ts`: Next.js sunucusu için çerez uyumlu Supabase istemcisi
+- `lib/supabase/client.ts`: tarayıcı bileşenleri için Supabase istemcisi
+- `supabase/schema.sql`: tablo, RLS izni, okuma kuralı ve örnek veriler
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Yayımlama
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Vercel projesinin Environment Variables ayarlarına `NEXT_PUBLIC_SUPABASE_URL` ve `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` değerlerini ekle. Sonra yeni bir deployment başlat. Publishable Key tarayıcıda kullanılmak üzere tasarlanmıştır; `sb_secret_` ile başlayan Secret Key'i bu projeye ekleme.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`.env.local` Git'e eklenmez. Gerçek proje adresini ve anahtarını `.env.example` dosyasına yazma.
