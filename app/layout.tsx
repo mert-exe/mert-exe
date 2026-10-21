@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
+import UstCubuk from "@/components/UstCubuk";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -8,8 +10,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="tr" className="h-full antialiased">
+      <body className="min-h-full flex flex-col">
+        <Suspense fallback={<nav className="border-b p-4 font-bold">LMS</nav>}>
+          <UstCubuk />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }
